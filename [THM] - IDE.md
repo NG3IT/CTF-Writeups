@@ -8,6 +8,8 @@
 
 I use nmap for scanning the machine ports and services avalaibles.
 
+First scan :
+
 ```bash
 $ nmap -sS <target_ip>
 [...]
@@ -20,6 +22,19 @@ PORT   STATE SERVICE
 ```
 
 We can see we have few interesting services like ftp and http. We don't focus ssh for the moment.
+
+Second scan : full scan :
+
+```bash
+$ sudo nmap -sS -T5 -p- <target_ip>
+[...]
+Not shown: 65495 closed ports, 36 filtered ports
+PORT      STATE SERVICE
+21/tcp    open  ftp
+22/tcp    open  ssh
+80/tcp    open  http
+62337/tcp open  unknown
+```
 
 ---
 
