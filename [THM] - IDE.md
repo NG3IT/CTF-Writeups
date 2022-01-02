@@ -81,7 +81,7 @@ ftp>
 
 We have download the file named "-". Let's see this file content.
 
-```bash
+```txt
 Hey john,
 I have reset the password as you have asked. Please use the default password to login. 
 Also, please take care of the image file ;)
