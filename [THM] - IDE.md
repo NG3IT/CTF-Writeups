@@ -94,6 +94,47 @@ Also, please take care of the image file ;)
 
 A web site is avalaible on the port 80. When you request http://<target_ip>/, we have a response with the apache default page. The next step it is to enumerate pages.
 
-This website seems empty.
+This website seems empty after a gobuster scan.
 
 ---
+
+### HTTP 62337
+
+Let's do an another web content scan, we will use dirb this time :
+
+```bash
+$ dirb http://<target_ip>/
+[...]
+---- Scanning URL: http://10.10.207.204:62337/ ----
+==> DIRECTORY: http://10.10.207.204:62337/components/                                                                                                                             
+==> DIRECTORY: http://10.10.207.204:62337/data/                                                                                                                                   
++ http://10.10.207.204:62337/favicon.ico (CODE:200|SIZE:1150)                                                                                                                     
++ http://10.10.207.204:62337/index.php (CODE:200|SIZE:5239)                                                                                                                       
+==> DIRECTORY: http://10.10.207.204:62337/js/                                                                                                                                     
+==> DIRECTORY: http://10.10.207.204:62337/languages/                                                                                                                             
+==> DIRECTORY: http://10.10.207.204:62337/lib/                                                                                                                                   
+==> DIRECTORY: http://10.10.207.204:62337/plugins/                                                                                                                               
++ http://10.10.207.204:62337/server-status (CODE:403|SIZE:281)                                                                                                                   
+==> DIRECTORY: http://10.10.207.204:62337/themes/ 
+```
+
+After checked some directories, we can find an interresting information in this page : http://10.10.207.204:62337/js/system.js
+
+```txt
+/*
+ *  Copyright (c) Codiad & Kent Safranski (codiad.com), distributed
+ *  as-is and without warranty under the MIT License. See
+ *  [root]/license.txt for more. This information must remain intact.
+ */
+```
+
+We need to search the default password of Codiad, like drac said previously. In fact, he reset the john's password with the default password.
+
+After few research the default password is ... password.
+
+---
+
+## Exploitation
+
+Let's try to connect via the form on the index page with this credentials : john/password. That works !
+
