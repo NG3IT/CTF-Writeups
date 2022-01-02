@@ -163,7 +163,7 @@ If we check the user drac history, we can see this following entry :
 ```bash
 /home/drac
 $ cat .bash_history
-mysql -u drac -p 'Th3dRaCULa1sR3aL'
+mysql -u drac -p '<drac_password>'
 ```
 
 We can try to connect on the ssh to the target machine with this password.
