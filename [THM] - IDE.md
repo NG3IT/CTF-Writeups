@@ -75,7 +75,7 @@ Also, please take care of the image file ;)
 
 ---
 
-## HTTP 80
+### HTTP 80
 
 A web site is avalaible on the port 80. When you request http://<target_ip>/, we have a response with the apache default page. The next step it is to enumerate pages.
 
