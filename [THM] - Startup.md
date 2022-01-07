@@ -1,4 +1,4 @@
-# TryHackMe - IDE
+# TryHackMe - Startup
 
 [Room link](https://tryhackme.com/room/startup)
 
