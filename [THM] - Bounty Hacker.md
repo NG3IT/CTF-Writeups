@@ -1,6 +1,6 @@
-# TryHackMe - IDE
+# TryHackMe - Bounty Hacker
 
-[Room link](https://tryhackme.com/room/ide)
+[Room link](https://tryhackme.com/room/cowboyhacker)
 
 ---
 
