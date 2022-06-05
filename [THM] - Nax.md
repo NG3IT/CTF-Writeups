@@ -50,8 +50,7 @@ Exploaration on port 80 :
 On /
 
 ```txt
-Welcome to elements.
-					Ag - Hg - Ta - Sb - Po - Pd - Hg - Pt - Lr
+Welcome to elements.					Ag - Hg - Ta - Sb - Po - Pd - Hg - Pt - Lr
 ```
 
 We can find this elements on the periodic table of elements and then we can retrieve the number associated.
@@ -69,6 +68,10 @@ We can find the artist of this picture with exiftool
 $ exiftool PI3T.PNg
 [...]
 Artist                          : Piet Mondrian
+```
+
+<br>
+
 ---
 
 ## Exploitation
