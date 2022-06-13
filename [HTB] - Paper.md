@@ -106,11 +106,6 @@ GENERATED WORDS: 4612
 ==> DIRECTORY: http://10.10.11.143/manual/style/ 
 ```
 
-```bash
-$ gobuster dir -u http://10.10.11.143 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x json,html,php,txt,xml,md,bak
-
-```
-
 Nikto
 
 ```bash
