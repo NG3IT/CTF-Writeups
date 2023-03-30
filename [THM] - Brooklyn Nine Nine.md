@@ -1,4 +1,4 @@
-# TryHackMe - Brooklyn Nine Nine
+# [THM] - Brooklyn Nine Nine
 
 [Room link](https://tryhackme.com/room/brooklynninenine)
 
