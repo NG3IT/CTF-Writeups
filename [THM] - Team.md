@@ -1,4 +1,4 @@
-# TryHackMe - Team
+# [THM] - Team
 
 [Room link](https://tryhackme.com/room/teamcw)
 
