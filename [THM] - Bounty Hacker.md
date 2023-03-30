@@ -1,4 +1,4 @@
-# TryHackMe - Bounty Hacker
+# [THM] - Bounty Hacker
 
 [Room link](https://tryhackme.com/room/cowboyhacker)
 
