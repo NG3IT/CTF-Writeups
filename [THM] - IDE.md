@@ -1,4 +1,4 @@
-# TryHackMe - IDE
+# [THM] - IDE
 
 [Room link](https://tryhackme.com/room/ide)
 
