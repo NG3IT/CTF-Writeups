@@ -1,4 +1,4 @@
-# TryHackMe - Nax
+# [THM] - Nax
 
 [Room link](https://tryhackme.com/room/nax)
 
