@@ -1,4 +1,4 @@
-# TryHackMe - Ignite
+# [THM] - Ignite
 
 [Room link](https://tryhackme.com/room/ignite)
 
