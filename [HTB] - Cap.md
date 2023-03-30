@@ -1,4 +1,4 @@
-# HackTheBox - Cap
+# [HTB] - Cap
 
 [Room link](https://app.hackthebox.com/machines/Cap)
 
