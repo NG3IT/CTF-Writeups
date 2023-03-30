@@ -1,4 +1,4 @@
-# TryHackMe - Alfred
+# [THM] - Alfred
 
 [Room link](https://tryhackme.com/room/alfred)
 
