@@ -1,4 +1,4 @@
-# TryHackMe - Startup
+# [THM] - Startup
 
 [Room link](https://tryhackme.com/room/startup)
 
